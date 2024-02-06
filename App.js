@@ -1,11 +1,10 @@
 import { NativeBaseProvider, Box } from "native-base";
-import Topbar from "./components/Topbar";
+import { Root } from "./src/components/RootComponent";
 
 export default function App() {
   return (
     <NativeBaseProvider>
-      <Topbar></Topbar>
-      <Box safeArea>Hello world</Box>
+      <Root></Root>
     </NativeBaseProvider>
   );
 }
