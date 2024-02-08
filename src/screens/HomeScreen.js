@@ -22,33 +22,11 @@ import campusMap from "../../public/images/campus-map.png";
 import verticalDots from "../../public/icons/vertical-dots.png";
 import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import StyledButton from "../components/StyledButton";
+import SearchBar from "../components/SearchBar";
 import { Keyboard } from "react-native";
 
 const purpleHex = "#4C1D95";
 
-const SearchBar = (props) => {
-  const { placeholder, searchFunction } = props;
-  return (
-    <VStack w="100%" space={5} alignSelf="center">
-      <Input
-        placeholder={placeholder}
-        width="100%"
-        variant="rounded"
-        InputRightElement={
-          <Pressable onPress={searchFunction}>
-            <Icon
-              m="2"
-              mr="3"
-              size="6"
-              color="#4C1D95"
-              as={<MaterialIcons name="search" />}
-            />
-          </Pressable>
-        }
-      />
-    </VStack>
-  );
-};
 
 const HomeScreen = () => {
   const searchLocation = () => {
