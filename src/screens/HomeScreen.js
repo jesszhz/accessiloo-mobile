@@ -17,7 +17,12 @@ import {
   Row,
 } from "native-base";
 import { Button } from "native-base";
-import { ScrollView, Pressable, TouchableWithoutFeedback } from "react-native";
+import {
+  ScrollView,
+  Pressable,
+  TouchableWithoutFeedback,
+  TouchableHighlight,
+} from "react-native";
 import campusMap from "../../public/images/campus-map.png";
 import verticalDots from "../../public/icons/vertical-dots.png";
 import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
@@ -30,21 +35,6 @@ import { useState, useEffect } from "react";
 import useServerData from "../hooks/useServerData";
 
 const purpleHex = "#4C1D95";
-
-const DATA = [
-  {
-    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-    title: "First Item",
-  },
-  {
-    id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-    title: "Second Item",
-  },
-  {
-    id: "58694a0f-3da1-471f-bd96-145571e29d72",
-    title: "Third Item",
-  },
-];
 
 const HomeScreen = () => {
   const url = `${API_BASE_URL}/locations`;
@@ -61,7 +51,7 @@ const HomeScreen = () => {
       <Center w="100%">
         <Flex my="5%" w="90%" gap="4" justifyContent="flex-start">
           {/* Seach boxes */}
-          <DropdownSearchBar></DropdownSearchBar>
+          <DropdownSearchBar locations={locations}></DropdownSearchBar>
 
           <Flex direction="row" alignItems="center">
             {/* <Icon

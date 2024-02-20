@@ -1,5 +1,5 @@
 import React, { Component, useState } from "react";
-import { TextInput } from "react-native";
+import { TextInput, TouchableHighlight } from "react-native";
 import { FlatList, View, Text } from "native-base";
 import { useEffect } from "react";
 
@@ -23,35 +23,22 @@ const DropdownSeparator = () => {
 
 const DropdownItem = (props) => {
   const { onClick, item } = props;
+  const pressHandler = () => {
+    console.log("pressed", item.name);
+  };
   return (
-    <View>
-      <Text>{item.title}</Text>
-    </View>
+    <TouchableHighlight underlayColor={"white"} onClick={pressHandler}>
+      <View>
+        <Text>{item.name}</Text>
+      </View>
+    </TouchableHighlight>
   );
 };
 
-const DropdownSearchBar = () => {
-  const [locations, setLocations] = useState([]);
+const DropdownSearchBar = (props) => {
+  const { locations, maxElements = 6 } = props;
   const [searchResults, setSearchResults] = useState([]);
   const [searchText, setSearchText] = useState("");
-
-  useEffect(() => {
-    console.log("rerender happening");
-    setLocations([
-      {
-        id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-        title: "First Item",
-      },
-      {
-        id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-        title: "Second Item",
-      },
-      {
-        id: "58694a0f-3da1-471f-bd96-145571e29d72",
-        title: "Third Item",
-      },
-    ]);
-  }, []);
 
   useEffect(() => {
     console.log("search results:");
@@ -64,12 +51,12 @@ const DropdownSearchBar = () => {
       return;
     }
     const newSearchResults = locations.filter((item) => {
-      const itemData = `${item.title.toUpperCase()}`;
+      const itemData = `${item.name.toUpperCase()}`;
       const textData = searchText.toUpperCase();
       return itemData.indexOf(textData) > -1;
     });
 
-    setSearchResults(newSearchResults);
+    setSearchResults(newSearchResults.slice(0, maxElements));
     setSearchText(searchText);
   };
 
