@@ -4,10 +4,12 @@ const useServerData = (url) => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
 
+
   useEffect(() => {
     const getData = async () => {
       try {
         let ignore = false;
+        console.log("fetching endpoint:", url);
         const response = await fetch(url);
         if (!response.ok) {
           throw new Error(`HTTP error: The status is ${response.status}`);

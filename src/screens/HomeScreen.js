@@ -9,12 +9,15 @@ import { useState, useEffect } from "react";
 import useServerData from "../hooks/useServerData";
 import NearestWashroomModal from "../components/NearestWashroomModal";
 import CheckBox from "react-native-check-box";
+import LocationSelector from "../components/LocationSelector";
 
 const purpleHex = "#4C1D95";
 
 const HomeScreen = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [formData, setFormData] = useState({ elevators: true, stairs: true });
+  const [startLocation, setStartLocation] = useState(null);
+  const [endLocation, setEndLocation] = useState(null);
 
   const url = `${API_BASE_URL}/locations`;
   const locations = useServerData(url);
@@ -30,27 +33,27 @@ const HomeScreen = ({ navigation }) => {
     <>
       {/* Modal  */}
       <NearestWashroomModal
+        startLocation={startLocation}
         isOpen={modalVisible}
         onCloseHandler={() => setModalVisible(false)}
-        onSubmit={() => {
-          navigation.navigate("Directions"), { apiCall: "yeet" };
-        }}
       ></NearestWashroomModal>
 
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <Center w="100%">
           <Flex my="5%" w="90%" gap="4" justifyContent="flex-start">
             {/* Seach boxes */}
-
-            <Flex direction="row" alignItems="center">
-              <SearchBar
-                placeholder="Search Your Location..."
-                locations={locations}
-              ></SearchBar>
-            </Flex>
-            <Flex direction="row" alignItems="center">
-              <SearchBar placeholder="Search Your Destination..."></SearchBar>
-            </Flex>
+            <LocationSelector
+              locations={locations}
+              placeholder="Search Your Location..."
+              selectedLocation={startLocation}
+              setSelectedLocation={setStartLocation}
+            />
+            <LocationSelector
+              locations={locations}
+              placeholder="Search Your Destination..."
+              selectedLocation={endLocation}
+              setSelectedLocation={setEndLocation}
+            />
 
             {/* Check boxes  */}
             <CheckBox
@@ -81,7 +84,12 @@ const HomeScreen = ({ navigation }) => {
               colorScheme="purple"
               bg={purpleHex}
               onPress={() => {
-                navigation.navigate("Directions");
+                navigation.navigate("Directions", {
+                  type: "campusNavigation",
+                  startLocation: startLocation,
+                  endLocation: endLocation,
+                  options: formData,
+                });
               }}
             >
               Search Directions

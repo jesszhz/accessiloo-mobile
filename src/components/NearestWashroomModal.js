@@ -11,7 +11,7 @@ const washroomOptions = [
 ];
 
 const NearestWashroomModal = (props) => {
-  const { isOpen, onCloseHandler } = props;
+  const { startLocation, isOpen, onCloseHandler } = props;
   const navigation = useNavigation();
   const [formData, setFormData] = useState({
     single: false,
@@ -41,10 +41,7 @@ const NearestWashroomModal = (props) => {
   return (
     <Modal isOpen={isOpen} onClose={onCloseHandler}>
       <Modal.Content maxWidth="400px">
-        <Modal.Body>
-          <Text>hello</Text>
-          {washroomCheckboxes}
-        </Modal.Body>
+        <Modal.Body>{washroomCheckboxes}</Modal.Body>
         <Modal.Footer>
           <Button
             onPress={() => {
@@ -52,6 +49,7 @@ const NearestWashroomModal = (props) => {
               navigation.navigate("Directions", {
                 type: "nearestWashroom",
                 options: formData,
+                startLocation: startLocation,
               });
             }}
           >

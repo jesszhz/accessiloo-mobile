@@ -23,9 +23,6 @@ const DropdownSeparator = () => {
 
 const DropdownItem = (props) => {
   const { onClick, item } = props;
-  const pressHandler = () => {
-    console.log("pressed", item.name);
-  };
   return (
     <View>
       <Text>{item.name}</Text>
@@ -38,10 +35,7 @@ const DropdownSearchBar = (props) => {
   const [searchResults, setSearchResults] = useState([]);
   const [searchText, setSearchText] = useState("");
 
-  useEffect(() => {
-    console.log("search results:");
-    console.log(searchResults);
-  }, [locations, searchResults]);
+  useEffect(() => {}, [locations, searchResults]);
 
   const searchItems = (searchText) => {
     if (searchText == "") {

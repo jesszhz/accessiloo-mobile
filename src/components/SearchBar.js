@@ -5,9 +5,7 @@ import { useState } from "react";
 
 const DropdownItem = (props) => {
   const { onClick, item } = props;
-  const pressHandler = () => {
-    console.log("pressed", item.name);
-  };
+  const pressHandler = () => {};
   return (
     <Pressable onPress={pressHandler}>
       <View>
