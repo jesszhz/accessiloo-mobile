@@ -24,7 +24,7 @@ const DropdownSeparator = () => {
 const SearchBar = (props) => {
   const { locations, maxElements = 6, placeholder } = props;
   const [searchResults, setSearchResults] = useState([]);
-  const [searchText, setSearchText] = useState("");
+  const [dropdownVisible, setDropdownVisible] = useState(false);
 
   const searchItems = (searchText) => {
     if (searchText === "") {
@@ -38,17 +38,26 @@ const SearchBar = (props) => {
     });
 
     setSearchResults(newSearchResults.slice(0, maxElements));
-    setSearchText(searchText);
   };
 
   return (
-    <VStack w="100%" space={5} alignSelf="center">
+    <VStack
+      onBlur={() => {
+        setDropdownVisible(false);
+      }}
+      w="100%"
+      space={5}
+      alignSelf="center"
+    >
       <Input
         placeholder={placeholder}
         width="100%"
         variant="rounded"
         onChangeText={(text) => {
           searchItems(text);
+        }}
+        onFocus={() => {
+          setDropdownVisible(true);
         }}
         InputRightElement={
           <Icon
@@ -60,12 +69,14 @@ const SearchBar = (props) => {
           />
         }
       />
-      <FlatList
-        data={searchResults}
-        renderItem={({ item }) => <DropdownItem item={item} />}
-        keyExtractor={(item) => item.id}
-        ItemSeparatorComponent={DropdownSeparator}
-      ></FlatList>
+      {dropdownVisible && (
+        <FlatList
+          data={searchResults}
+          renderItem={({ item }) => <DropdownItem item={item} />}
+          keyExtractor={(item) => item.id}
+          ItemSeparatorComponent={DropdownSeparator}
+        ></FlatList>
+      )}
     </VStack>
   );
 };
