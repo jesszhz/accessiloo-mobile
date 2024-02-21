@@ -1,44 +1,19 @@
-import {
-  Icon,
-  Box,
-  Heading,
-  Image,
-  Flex,
-  Spacer,
-  Column,
-  Stack,
-  View,
-  Text,
-  HStack,
-  Input,
-  Center,
-  Checkbox,
-  VStack,
-  Row,
-} from "native-base";
+import { Image, Box, View, Flex, Center, Checkbox, Row } from "native-base";
 import { Button } from "native-base";
-import {
-  ScrollView,
-  Pressable,
-  TouchableWithoutFeedback,
-  TouchableHighlight,
-} from "react-native";
+import { TouchableWithoutFeedback } from "react-native";
 import campusMap from "../../public/images/campus-map.png";
-import verticalDots from "../../public/icons/vertical-dots.png";
-import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
-import StyledButton from "../components/StyledButton";
 import SearchBar from "../components/SearchBar";
 import { Keyboard } from "react-native";
-import DropdownSearchBar from "../components/DropdownSearchBar";
 import { API_BASE_URL } from "@env";
 import { useState, useEffect } from "react";
 import useServerData from "../hooks/useServerData";
 import NearestWashroomModal from "../components/NearestWashroomModal";
+import CheckBox from "react-native-check-box";
 
 const purpleHex = "#4C1D95";
 
 const HomeScreen = ({ navigation }) => {
-  const [modalVisible, setModalVisible] = useState(true);
+  const [modalVisible, setModalVisible] = useState(false);
   const url = `${API_BASE_URL}/locations`;
   const locations = useServerData(url);
 
@@ -61,12 +36,12 @@ const HomeScreen = ({ navigation }) => {
         <Center w="100%">
           <Flex my="5%" w="90%" gap="4" justifyContent="flex-start">
             {/* Seach boxes */}
-            <DropdownSearchBar locations={locations}></DropdownSearchBar>
 
             <Flex direction="row" alignItems="center">
               <SearchBar
                 placeholder="Search Your Location..."
-                searchFunction={searchLocation} locations={locations}
+                searchFunction={searchLocation}
+                locations={locations}
               ></SearchBar>
             </Flex>
             <Flex direction="row" alignItems="center">
@@ -77,12 +52,14 @@ const HomeScreen = ({ navigation }) => {
             </Flex>
 
             {/* Check boxes  */}
-            <Row alignItems="center" justifyContent="center">
-              <Checkbox mr="7" colorScheme="purple">
-                Avoid Stairs
-              </Checkbox>
-              <Checkbox colorScheme="purple">Avoid Ramps</Checkbox>
-            </Row>
+            <CheckBox rightText={"Avoid Stairs"} />
+            <CheckBox rightText={"Avoid Elevators"} />
+            {/* IDK WHY THE CHECKBOXES HAVE THEIR TEXT CUT OFF WHEN I TRY TO CENTER */}
+            {/* <Row space={3} justifyContent="center">
+              <Center h="40" w="20" bg="primary.300" rounded="md"></Center>
+              <Center h="40" w="20" bg="primary.300" rounded="md"></Center>
+              <Center h="40" w="20" bg="primary.300" rounded="md"></Center>
+            </Row> */}
 
             {/* Buttons and map */}
 
