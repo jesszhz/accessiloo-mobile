@@ -14,11 +14,16 @@ const purpleHex = "#4C1D95";
 
 const HomeScreen = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
+  const [formData, setFormData] = useState({ elevators: true, stairs: true });
+
   const url = `${API_BASE_URL}/locations`;
   const locations = useServerData(url);
 
-  const searchLocation = () => {
-    console.log("searching");
+  const handleCheckBox = (option) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [option]: !prevFormData[option],
+    }));
   };
 
   return (
@@ -40,20 +45,28 @@ const HomeScreen = ({ navigation }) => {
             <Flex direction="row" alignItems="center">
               <SearchBar
                 placeholder="Search Your Location..."
-                searchFunction={searchLocation}
                 locations={locations}
               ></SearchBar>
             </Flex>
             <Flex direction="row" alignItems="center">
-              <SearchBar
-                placeholder="Search Your Destination..."
-                searchFunction={searchLocation}
-              ></SearchBar>
+              <SearchBar placeholder="Search Your Destination..."></SearchBar>
             </Flex>
 
             {/* Check boxes  */}
-            <CheckBox rightText={"Avoid Stairs"} />
-            <CheckBox rightText={"Avoid Elevators"} />
+            <CheckBox
+              onClick={() => {
+                handleCheckBox("stairs");
+              }}
+              isChecked={!formData.stairs}
+              rightText={"Avoid Stairs"}
+            />
+            <CheckBox
+              onClick={() => {
+                handleCheckBox("elevators");
+              }}
+              isChecked={!formData.elevators}
+              rightText={"Avoid Elevators"}
+            />
             {/* IDK WHY THE CHECKBOXES HAVE THEIR TEXT CUT OFF WHEN I TRY TO CENTER */}
             {/* <Row space={3} justifyContent="center">
               <Center h="40" w="20" bg="primary.300" rounded="md"></Center>
