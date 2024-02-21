@@ -1,6 +1,6 @@
 import React, { Component, useState } from "react";
 import { TextInput, TouchableHighlight } from "react-native";
-import { FlatList, View, Text } from "native-base";
+import { FlatList, View, Text, Pressable } from "native-base";
 import { useEffect } from "react";
 
 const DropdownHeader = (props) => {
@@ -27,11 +27,9 @@ const DropdownItem = (props) => {
     console.log("pressed", item.name);
   };
   return (
-    <TouchableHighlight underlayColor={"white"} onClick={pressHandler}>
-      <View>
-        <Text>{item.name}</Text>
-      </View>
-    </TouchableHighlight>
+    <View>
+      <Text>{item.name}</Text>
+    </View>
   );
 };
 

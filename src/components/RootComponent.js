@@ -11,7 +11,7 @@ const screenOptions = {
   },
   headerTintColor: "#fff",
   headerTitleStyle: { fontWeight: "bold" },
-  // headerBackTitle: false,
+  headerBackTitle: "Back",
 };
 
 export const Root = () => {

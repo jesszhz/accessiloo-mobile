@@ -1,12 +1,19 @@
-const addArticle = (location) => {
-  // appends the correct article in front of the location if needed
-  if (location.indexOf("Exit") > -1) {
+const formatLocation = (location) => {
+  if (location === "SINGLE_WASHROOM") {
+    location = "single stall accessible washroom";
+  }
+  if (location.indexOf("Exit") > -1 || location.indexOf("washroom") > -1) {
+    // appends an correct article in front of the location if needed
     return `the ${location}`;
   }
   return location;
 };
 
 export const getFormattedDirections = (apiData) => {
+  if (!apiData) {
+    return null;
+  }
+
   const { nodes, edges } = apiData;
 
   const directions = [];
@@ -14,14 +21,13 @@ export const getFormattedDirections = (apiData) => {
 
   while (idx < edges.length) {
     const path = edges[idx];
-    const startLocation = addArticle(nodes[idx]);
-    let endLocation = addArticle(nodes[idx + 1]);
+    const startLocation = formatLocation(nodes[idx]);
+    let endLocation = formatLocation(nodes[idx + 1]);
 
     switch (path) {
       case "ELEVATOR":
         // coalescing multi-floor elevator rides
         while (idx < edges.length && edges[idx + 1] == "ELEVATOR") {
-          console.log(idx);
           idx++;
           endLocation = nodes[idx + 1];
         }
@@ -45,7 +51,6 @@ export const getFormattedDirections = (apiData) => {
       case "STAIR":
         // coalescing multi-floor stair trips
         while (idx < edges.length && edges[idx + 1] == "STAIR") {
-          console.log(idx);
           idx++;
           endLocation = nodes[idx + 1];
         }
@@ -57,5 +62,5 @@ export const getFormattedDirections = (apiData) => {
     }
     idx++;
   }
-  console.log(directions);
+  return directions;
 };
