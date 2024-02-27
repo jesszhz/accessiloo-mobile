@@ -7,9 +7,10 @@ import {
   Text,
   Icon,
   Pressable,
+  Heading,
 } from "native-base";
 import { MaterialIcons } from "@expo/vector-icons";
-import { useState, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const LocationSelectorModal = (props) => {
   const {
@@ -52,6 +53,17 @@ const LocationSelectorModal = (props) => {
   );
 };
 
+const sortLocations = (locations) => {
+  if (!locations || locations.length == 0) {
+    return;
+  }
+
+  return locations.sort((a, b) => {
+    const compareResult = a.name.localeCompare(b.name);
+    return compareResult;
+  });
+};
+
 const LocationSelector = (props) => {
   const { locations, placeholder, selectedLocation, setSelectedLocation } =
     props;
@@ -63,12 +75,13 @@ const LocationSelector = (props) => {
       <LocationSelectorModal
         isOpen={isModalVisible}
         onCloseHandler={() => setModalVisible(false)}
-        locations={locations}
+        locations={sortLocations(locations)}
         selectedLocation={selectedLocation}
         setSelectedLocation={setSelectedLocation}
       ></LocationSelectorModal>
       <VStack w="100%" space={5} alignSelf="center">
         <Input
+          size="lg"
           ref={inputRef}
           placeholder={placeholder}
           width="100%"
@@ -81,13 +94,19 @@ const LocationSelector = (props) => {
           }}
           value={selectedLocation}
           InputRightElement={
-            <Icon
-              m="2"
-              mr="3"
-              size="6"
-              color="#4C1D95"
-              as={<MaterialIcons name="search" />}
-            />
+            <Pressable
+              onPress={() => {
+                setSelectedLocation("");
+              }}
+            >
+              <Icon
+                m="2"
+                mr="3"
+                size="6"
+                color="#4C1D95"
+                as={<MaterialIcons name="clear" />}
+              />
+            </Pressable>
           }
         />
       </VStack>

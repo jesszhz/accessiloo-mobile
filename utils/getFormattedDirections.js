@@ -55,7 +55,7 @@ export const getFormattedDirections = (apiData) => {
         break;
       case "OUTDOOR":
         directions.push({
-          text: `Walk from ${startLocation} to ${endLocation}`,
+          text: `Exit using ${startLocation} and navigate outdoors to ${endLocation}`,
           icon: "OUTDOOR",
         });
         break;
