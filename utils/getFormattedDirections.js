@@ -18,13 +18,11 @@ export const getFormattedDirections = (apiData) => {
   if (!apiData || apiData.length === 0) {
     return [{ text: "No directions found" }];
   }
-  console.log("do not execute this");
 
   if (Array.isArray(apiData)) {
     apiData = apiData[0];
   }
 
-  console.log("apiData is", apiData);
   const { nodes, edges } = apiData;
 
   const directions = [];
