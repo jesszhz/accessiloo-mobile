@@ -71,7 +71,7 @@ const HomeScreen = ({ navigation }) => {
               }}
               isChecked={!formData.stairs}
               rightText={"Avoid Stairs"}
-              rightTextStyle={{ fontSize: "18" }}
+              rightTextStyle={{ fontSize: 18 }}
             />
             <CheckBox
               onClick={() => {
@@ -79,7 +79,7 @@ const HomeScreen = ({ navigation }) => {
               }}
               isChecked={!formData.elevators}
               rightText={"Avoid Elevators"}
-              rightTextStyle={{ fontSize: "18" }}
+              rightTextStyle={{ fontSize: 18 }}
             />
             {/* IDK WHY THE CHECKBOXES HAVE THEIR TEXT CUT OFF WHEN I TRY TO CENTER */}
             {/* <Row space={3} justifyContent="center">

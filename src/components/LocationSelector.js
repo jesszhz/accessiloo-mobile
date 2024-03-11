@@ -21,8 +21,9 @@ const LocationSelectorModal = (props) => {
     setSelectedLocation,
   } = props;
 
-  const locationCards = locations?.map((location) => (
+  const locationCards = locations?.map((location, index) => (
     <Pressable
+      key={index}
       onPress={() => {
         setSelectedLocation(location.name);
         onCloseHandler();
