@@ -1,20 +1,18 @@
 import { Image, Text, View } from "native-base";
 import useServerData from "../hooks/useServerData";
 import { useEffect, useState } from "react";
+import fillerImg from "../../public/images/filler.png";
 
-const DirectionCard = (props) => {
+const FloorPlanImage = (props) => {
   const { item } = props;
-  const [img, setImg] = useState("");
 
-  const pressHandler = () => {
-    console.log("im pressed!");
-  };
+  const [img, setImg] = useState("");
 
   // fetching the image somehow idk how this works
   useEffect(() => {
     const getImage = async () => {
       try {
-        const url = "https://koi-wise-kiwi.ngrok-free.app/locations/image/E7-1";
+        const url = `https://koi-wise-kiwi.ngrok-free.app/locations/image/${item.mapNode}`;
         const response = await fetch(url);
         const blob = await response.blob();
         const imgUrl = URL.createObjectURL(blob);
@@ -23,8 +21,45 @@ const DirectionCard = (props) => {
         console.log("Something went wrong", err);
       }
     };
+
     getImage();
   }, []);
+
+  return (
+    img && (
+      <Image
+        alt="map of directions"
+        style={{
+          width: 350,
+          height: 350,
+          resizeMode: "contain",
+        }}
+        source={{
+          uri: img,
+        }}
+      />
+    )
+  );
+};
+
+const OutsideImage = () => (
+  <Image
+    alt="map of directions"
+    style={{
+      width: 350,
+      height: 350,
+      resizeMode: "contain",
+    }}
+    source={fillerImg}
+  />
+);
+
+const DirectionCard = (props) => {
+  const { item } = props;
+
+  const pressHandler = () => {
+    console.log("im pressed!");
+  };
 
   return (
     <View
@@ -38,19 +73,11 @@ const DirectionCard = (props) => {
       my="2"
     >
       <Text fontSize={"md"}>{item.text}</Text>
-      {img && (
-        <Image
-          alt="map of directions"
-          style={{
-            width: 350,
-            height: 350,
-            resizeMode: "contain",
-          }}
-          source={{
-            uri: img,
-          }}
-        />
-      )}
+      {item?.mapNode === "outside" ? (
+        <OutsideImage />
+      ) : item.mapNode ? (
+        <FloorPlanImage item={item} />
+      ) : null}
     </View>
   );
 };

@@ -14,6 +14,15 @@ const formatLocation = (location) => {
   return location;
 };
 
+const getMapNodeString = (mapNode) => {
+  const mapNodeArr = mapNode.split(" ");
+
+  if (mapNodeArr[mapNodeArr.length - 1] === "Exit") {
+    return `${mapNodeArr[1]}-1`;
+  }
+  return `${mapNodeArr[0]}-${mapNodeArr[mapNodeArr.length - 1]}`;
+};
+
 export const getFormattedDirections = (apiData) => {
   if (!apiData || apiData.length === 0) {
     return [{ text: "No directions found" }];
@@ -43,18 +52,27 @@ export const getFormattedDirections = (apiData) => {
         directions.push({
           text: `Take elevator from ${startLocation} to ${endLocation}`,
           icon: "ELEVATOR",
+          mapNode: getMapNodeString(startLocation),
+          startNode: startLocation,
+          endNode: endLocation,
         });
         break;
       case "INDOOR":
         directions.push({
           text: `Walk to ${endLocation}`,
           icon: "INDOOR",
+          mapNode: getMapNodeString(endLocation),
+          startNode: startLocation,
+          endNode: endLocation,
         });
         break;
       case "OUTDOOR":
         directions.push({
           text: `Exit using ${startLocation} and navigate outdoors to ${endLocation}`,
           icon: "OUTDOOR",
+          mapNode: "outside",
+          startNode: startLocation,
+          endNode: endLocation,
         });
         break;
       case "STAIR":
@@ -66,6 +84,9 @@ export const getFormattedDirections = (apiData) => {
         directions.push({
           text: `Take stairs from ${startLocation} to ${endLocation}`,
           icon: "STAIR",
+          mapNode: getMapNodeString(startLocation),
+          startNode: startLocation,
+          endNode: endLocation,
         });
         break;
     }
