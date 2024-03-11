@@ -70,7 +70,7 @@ export const getFormattedDirections = (apiData) => {
         directions.push({
           text: `Exit using ${startLocation} and navigate outdoors to ${endLocation}`,
           icon: "OUTDOOR",
-          mapNode: "outside",
+          mapNode: null,
           startNode: startLocation,
           endNode: endLocation,
         });
