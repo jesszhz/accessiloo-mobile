@@ -5,6 +5,13 @@ const formatLocation = (location) => {
       break;
     case "FEMALE_WASHROOM":
       location = "women's washroom";
+      break;
+    case "MALE_WASHROOM":
+      location = "men's washroom";
+      break;
+    case "ACCESSIBLE_WASHROOM":
+      location = "accessible washroom";
+      break;
   }
 
   if (location.indexOf("Exit") > -1 || location.indexOf("washroom") > -1) {
@@ -58,13 +65,23 @@ export const getFormattedDirections = (apiData) => {
         });
         break;
       case "INDOOR":
-        directions.push({
-          text: `Walk to ${endLocation}`,
-          icon: "INDOOR",
-          mapNode: getMapNodeString(endLocation),
-          startNode: startLocation,
-          endNode: endLocation,
-        });
+        if (endLocation.includes("Tunnel")) {
+          directions.push({
+            text: `Walk to ${endLocation}`,
+            icon: "INDOOR",
+            mapNode: getMapNodeString(startLocation),
+            startNode: startLocation,
+            endNode: endLocation,
+          });
+        } else {
+          directions.push({
+            text: `Walk to ${endLocation}`,
+            icon: "INDOOR",
+            mapNode: getMapNodeString(endLocation),
+            startNode: startLocation,
+            endNode: endLocation,
+          });
+        }
         break;
       case "OUTDOOR":
         directions.push({

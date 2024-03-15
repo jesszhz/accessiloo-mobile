@@ -4,6 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 const DirectionCard = (props) => {
   const { item } = props;
   const navigation = useNavigation();
+  const showMap = item.mapNode && item.mapNode !== "outside";
 
   const pressHandler = () => {
     console.log("im pressed!");
@@ -20,11 +21,11 @@ const DirectionCard = (props) => {
       py="6"
       my="2"
     >
-      <Text fontSize={"md"}>{item.text}</Text>
-      {item.mapNode && (
+      <Text fontSize={"lg"}>{item.text}</Text>
+      {showMap && (
         <Link
           marginTop={4}
-          fontSize={"md"}
+          fontSize={"lg"}
           onPress={() => {
             navigation.navigate("Map", {
               item: item,
