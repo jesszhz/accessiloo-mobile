@@ -104,7 +104,7 @@ const HomeScreen = ({ navigation }) => {
                 });
               }}
             >
-              Search Directions
+              Get Directions
             </Button>
             <Button
               size={"lg"}
