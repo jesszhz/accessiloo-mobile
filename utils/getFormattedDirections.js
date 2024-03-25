@@ -77,7 +77,7 @@ export const getFormattedDirections = (apiData) => {
           });
         } else {
           directions.push({
-            text: `Walk to ${endLocation}`,
+            text: `Navigate to ${endLocation}`,
             icon: "INDOOR",
             mapNode: getMapNodeString(endLocation),
             startNode: startLocation,
