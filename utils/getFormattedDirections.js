@@ -62,6 +62,7 @@ export const getFormattedDirections = (apiData) => {
           mapNode: getMapNodeString(startLocation),
           startNode: startLocation,
           endNode: endLocation,
+          id: directions.length + 1,
         });
         break;
       case "INDOOR":
@@ -72,6 +73,7 @@ export const getFormattedDirections = (apiData) => {
             mapNode: getMapNodeString(startLocation),
             startNode: startLocation,
             endNode: endLocation,
+            id: directions.length + 1,
           });
         } else {
           directions.push({
@@ -80,6 +82,7 @@ export const getFormattedDirections = (apiData) => {
             mapNode: getMapNodeString(endLocation),
             startNode: startLocation,
             endNode: endLocation,
+            id: directions.length + 1,
           });
         }
         break;
@@ -90,6 +93,7 @@ export const getFormattedDirections = (apiData) => {
           mapNode: null,
           startNode: startLocation,
           endNode: endLocation,
+          id: directions.length + 1,
         });
         break;
       case "STAIR":
@@ -104,6 +108,7 @@ export const getFormattedDirections = (apiData) => {
           mapNode: getMapNodeString(startLocation),
           startNode: startLocation,
           endNode: endLocation,
+          id: directions.length + 1,
         });
         break;
     }

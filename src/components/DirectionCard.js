@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Image, Link, Text, View } from "native-base";
 import { useNavigation } from "@react-navigation/native";
 
@@ -6,9 +7,9 @@ const DirectionCard = (props) => {
   const navigation = useNavigation();
   const showMap = item.mapNode && item.mapNode !== "outside";
 
-  const pressHandler = () => {
-    console.log("im pressed!");
-  };
+  useEffect(() => {
+    console.log(item);
+  }, []);
 
   return (
     <View
@@ -16,11 +17,13 @@ const DirectionCard = (props) => {
       borderColor="#D4D4D4"
       borderRadius="xl"
       borderWidth={"2"}
-      onPress={pressHandler}
       px="4"
       py="6"
       my="2"
     >
+      <Text fontSize={"lg"} bold mb={3}>
+        Step {item.id}
+      </Text>
       <Text fontSize={"lg"}>{item.text}</Text>
       {showMap && (
         <Link
