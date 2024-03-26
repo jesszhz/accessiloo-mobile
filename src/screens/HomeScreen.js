@@ -125,6 +125,7 @@ const HomeScreen = ({ navigation }) => {
                   options: formData,
                 });
               }}
+              isDisabled={!startLocation || !endLocation}
             >
               Get Directions
             </Button>
