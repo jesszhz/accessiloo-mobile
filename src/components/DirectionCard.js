@@ -7,9 +7,9 @@ const DirectionCard = (props) => {
   const navigation = useNavigation();
   const showMap = item.mapNode && item.mapNode !== "outside";
 
-  useEffect(() => {
-    console.log(item);
-  }, []);
+  // useEffect(() => {
+  //   console.log(item);
+  // }, []);
 
   return (
     <View

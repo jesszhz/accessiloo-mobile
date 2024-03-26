@@ -98,7 +98,7 @@ export const getFormattedDirections = (apiData) => {
     return [{ text: "No directions found" }];
   }
 
-  const { nodes, edges } = apiData[0];
+  const { nodes, edges } = apiData;
   const directions = [];
   let idx = 0;
 
@@ -130,7 +130,6 @@ export const getFormattedDirections = (apiData) => {
     idx++;
   }
 
-  console.log("directions are", directions);
   return directions;
 };
 
@@ -139,7 +138,7 @@ const getDirectionsFromNodes = (startNode, endNode, path) => {
 
   const startLocation = startNode.properties.name;
   const endLocation = isWashroom
-    ? getWashroomName(node)
+    ? getWashroomName(endNode)
     : endNode.properties.name;
 
   switch (path) {
