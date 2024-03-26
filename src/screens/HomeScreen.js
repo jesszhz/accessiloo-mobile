@@ -57,7 +57,7 @@ const HomeScreen = ({ navigation }) => {
         <Center w="100%">
           <Flex my="5%" w="90%" gap="4" justifyContent="flex-start">
             {/* Seach boxes */}
-            <AutocompleteDropdown
+            {/* <AutocompleteDropdown
               clearOnFocus={false}
               closeOnBlur={true}
               closeOnSubmit={true}
@@ -67,7 +67,7 @@ const HomeScreen = ({ navigation }) => {
                 { id: "2", title: "Beta" },
                 { id: "3", title: "Gamma" },
               ]}
-            />
+            /> */}
             <LocationSelector
               locations={locations}
               placeholder="Search Your Location..."
