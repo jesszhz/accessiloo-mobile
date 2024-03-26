@@ -1,23 +1,57 @@
 import { useNavigation } from "@react-navigation/native";
-import { Modal, Button, Text } from "native-base";
+import { Modal, Button, Text, HStack, Box } from "native-base";
 import { useEffect, useState } from "react";
+import { View } from "react-native";
 import CheckBox from "react-native-check-box";
 
-const washroomOptions = [
-  { label: "single" },
-  { label: "female" },
-  { label: "male" },
-  { label: "accessible" },
+const stallOptions = [
+  { label: "multi", title: "Multi Stall" },
+  { label: "single", title: "Single Stall" },
 ];
+
+const genderOptions = [
+  { label: "female", title: "Female" },
+  { label: "male", title: "Male" },
+  { label: "gn", title: "Gender-Neutral" },
+];
+
+const navigationOptions = [
+  { label: "stairs", title: "No Stairs", inverse: true },
+  { label: "elevators", title: "No Elevators", inverse: true },
+  { label: "indoor", title: "Indoor Only", inverse: false },
+];
+
+const accessibleOptions = [{ label: "accessible", title: "Accessible" }];
+
+const StyledCheckbox = (props) => {
+  const { option, handleClick, formData } = props;
+
+  return (
+    <CheckBox
+      key={option.label}
+      onClick={handleClick}
+      isChecked={
+        option.inverse ? !formData[option.label] : formData[option.label]
+      }
+      rightText={option.title}
+      rightTextStyle={{ color: "#4C1D95", fontSize: 16 }}
+    ></CheckBox>
+  );
+};
 
 const NearestWashroomModal = (props) => {
   const { startLocation, isOpen, onCloseHandler } = props;
   const navigation = useNavigation();
   const [formData, setFormData] = useState({
     single: false,
+    multi: false,
     female: false,
     male: false,
-    accessible: false,
+    gn: false,
+    accessble: false,
+    stairs: true,
+    elevators: true,
+    indoor: false,
   });
 
   const handleChange = (option) => {
@@ -27,23 +61,78 @@ const NearestWashroomModal = (props) => {
     }));
   };
 
-  const washroomCheckboxes = washroomOptions.map((option) => (
-    <CheckBox
-      key={option.label}
-      onClick={() => {
+  const genderCheckboxes = genderOptions.map((option) => (
+    <StyledCheckbox
+      option={option}
+      handleClick={() => {
         handleChange(option);
       }}
-      isChecked={formData[option.label]}
-      rightText={option.label}
-    ></CheckBox>
+      formData={formData}
+    ></StyledCheckbox>
+  ));
+
+  const stallCheckboxes = stallOptions.map((option) => (
+    <StyledCheckbox
+      option={option}
+      handleClick={() => {
+        handleChange(option);
+      }}
+      formData={formData}
+    ></StyledCheckbox>
+  ));
+
+  const accessibleCheckboxes = accessibleOptions.map((option) => (
+    <StyledCheckbox
+      option={option}
+      handleClick={() => {
+        handleChange(option);
+      }}
+      formData={formData}
+    ></StyledCheckbox>
+  ));
+
+  const navigationCheckboxes = navigationOptions.map((option) => (
+    <StyledCheckbox
+      option={option}
+      handleClick={() => {
+        handleChange(option);
+      }}
+      formData={formData}
+    ></StyledCheckbox>
   ));
 
   return (
-    <Modal isOpen={isOpen} onClose={onCloseHandler}>
+    <Modal isOpen={isOpen} onClose={onCloseHandler} size="xl">
       <Modal.Content maxWidth="400px">
-        <Modal.Body>{washroomCheckboxes}</Modal.Body>
+        <Modal.Body>
+          <Box
+            borderBottomColor={"gray.300"}
+            borderBottomWidth={1}
+            paddingBottom={2}
+          >
+            {genderCheckboxes}
+          </Box>
+          <Box
+            paddingTop={2}
+            borderBottomColor={"gray.300"}
+            borderBottomWidth={1}
+            paddingBottom={2}
+          >
+            {stallCheckboxes}
+          </Box>
+          <Box
+            paddingTop={2}
+            borderBottomColor={"gray.300"}
+            borderBottomWidth={1}
+            paddingBottom={2}
+          >
+            {accessibleCheckboxes}
+          </Box>
+          <Box paddingTop={2}>{navigationCheckboxes}</Box>
+        </Modal.Body>
         <Modal.Footer>
           <Button
+            bgColor={"#4C1D95"}
             onPress={() => {
               onCloseHandler();
               navigation.navigate("Directions", {
