@@ -19,6 +19,8 @@ const LocationSelectorModal = (props) => {
     locations,
     selectedLocation,
     setSelectedLocation,
+    allowSearchWashroom,
+    setSearchWashroom,
   } = props;
 
   const locationCards = locations?.map((location, index) => (
@@ -26,6 +28,9 @@ const LocationSelectorModal = (props) => {
       key={index}
       onPress={() => {
         setSelectedLocation(location.name);
+        if (allowSearchWashroom) {
+          setSearchWashroom(false);
+        }
         onCloseHandler();
       }}
     >
@@ -45,10 +50,38 @@ const LocationSelectorModal = (props) => {
     </Pressable>
   ));
 
+  const searchWashroomCard = (
+    <Pressable
+      key={"washroom"}
+      onPress={() => {
+        setSearchWashroom(true);
+        setSelectedLocation("Nearest Washroom");
+        onCloseHandler();
+      }}
+    >
+      {({ isPressed }) => {
+        return (
+          <Box
+            key={"washroom"}
+            justifyContent={"center"}
+            alignItems="center"
+            height={12}
+            bg={isPressed ? "coolGray.200" : "indigo.100"}
+          >
+            <Text fontSize={"md"}>Search for nearest washroom</Text>
+          </Box>
+        );
+      }}
+    </Pressable>
+  );
+
   return (
     <Modal isOpen={isOpen} onClose={onCloseHandler}>
       <Modal.Content maxWidth={"400px"} height={"500px"}>
-        <Modal.Body>{locationCards}</Modal.Body>
+        <Modal.Body>
+          {allowSearchWashroom && searchWashroomCard}
+          {locationCards}
+        </Modal.Body>
       </Modal.Content>
     </Modal>
   );
@@ -66,8 +99,14 @@ const sortLocations = (locations) => {
 };
 
 const LocationSelector = (props) => {
-  const { locations, placeholder, selectedLocation, setSelectedLocation } =
-    props;
+  const {
+    locations,
+    placeholder,
+    selectedLocation,
+    setSelectedLocation,
+    allowSearchWashroom,
+    setSearchWashroom,
+  } = props;
   const [isModalVisible, setModalVisible] = useState(false);
   const inputRef = useRef(null);
 
@@ -79,6 +118,8 @@ const LocationSelector = (props) => {
         locations={sortLocations(locations)}
         selectedLocation={selectedLocation}
         setSelectedLocation={setSelectedLocation}
+        allowSearchWashroom={allowSearchWashroom}
+        setSearchWashroom={setSearchWashroom}
       ></LocationSelectorModal>
       <VStack w="100%" space={5} alignSelf="center">
         <Input

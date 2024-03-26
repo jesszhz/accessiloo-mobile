@@ -32,7 +32,7 @@ const HomeScreen = ({ navigation }) => {
   });
   const [startLocation, setStartLocation] = useState(null);
   const [endLocation, setEndLocation] = useState(null);
-  const [selectedItem, setSelectedItem] = useState(null);
+  const [searchWashroom, setSearchWashroom] = useState(false);
 
   const url = `${API_BASE_URL}/locations`;
   const locations = useServerData(url);
@@ -51,6 +51,7 @@ const HomeScreen = ({ navigation }) => {
         startLocation={startLocation}
         isOpen={modalVisible}
         onCloseHandler={() => setModalVisible(false)}
+        routeOptions={formData}
       ></NearestWashroomModal>
 
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -79,6 +80,8 @@ const HomeScreen = ({ navigation }) => {
               placeholder="Search Your Destination..."
               selectedLocation={endLocation}
               setSelectedLocation={setEndLocation}
+              allowSearchWashroom={true}
+              setSearchWashroom={setSearchWashroom}
             />
             {/* Check boxes  */}
             <CheckBox
@@ -118,33 +121,27 @@ const HomeScreen = ({ navigation }) => {
               colorScheme="purple"
               bg={purpleHex}
               onPress={() => {
-                navigation.navigate("Directions", {
-                  type: "campusNavigation",
-                  startLocation: startLocation,
-                  endLocation: endLocation,
-                  options: formData,
-                });
+                if (searchWashroom) {
+                  setModalVisible(true);
+                } else {
+                  navigation.navigate("Directions", {
+                    type: "campusNavigation",
+                    startLocation: startLocation,
+                    endLocation: endLocation,
+                    options: formData,
+                  });
+                }
               }}
               isDisabled={!startLocation || !endLocation}
             >
               Get Directions
-            </Button>
-            <Button
-              size={"lg"}
-              borderRadius="lg"
-              colorScheme="purple"
-              bg={purpleHex}
-              onPress={() => {
-                setModalVisible(true);
-              }}
-            >
-              Find Nearest Washroom
             </Button>
             <Center>
               <Image
                 source={campusMap}
                 alt="Map of buildings on the UW campus"
                 w="100%"
+                marginTop={3}
               ></Image>
             </Center>
           </Flex>

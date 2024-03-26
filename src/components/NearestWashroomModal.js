@@ -15,12 +15,6 @@ const genderOptions = [
   { label: "gn", title: "Gender-Neutral" },
 ];
 
-const navigationOptions = [
-  { label: "stairs", title: "No Stairs", inverse: true },
-  { label: "elevators", title: "No Elevators", inverse: true },
-  { label: "indoor", title: "Indoor Only", inverse: false },
-];
-
 const accessibleOptions = [{ label: "accessible", title: "Accessible" }];
 
 const StyledCheckbox = (props) => {
@@ -40,7 +34,7 @@ const StyledCheckbox = (props) => {
 };
 
 const NearestWashroomModal = (props) => {
-  const { startLocation, isOpen, onCloseHandler } = props;
+  const { startLocation, isOpen, onCloseHandler, routeOptions } = props;
   const navigation = useNavigation();
   const [formData, setFormData] = useState({
     single: false,
@@ -49,9 +43,6 @@ const NearestWashroomModal = (props) => {
     male: false,
     gn: false,
     accessble: false,
-    stairs: true,
-    elevators: true,
-    indoor: false,
   });
 
   const handleChange = (option) => {
@@ -91,16 +82,6 @@ const NearestWashroomModal = (props) => {
     ></StyledCheckbox>
   ));
 
-  const navigationCheckboxes = navigationOptions.map((option) => (
-    <StyledCheckbox
-      option={option}
-      handleClick={() => {
-        handleChange(option);
-      }}
-      formData={formData}
-    ></StyledCheckbox>
-  ));
-
   return (
     <Modal isOpen={isOpen} onClose={onCloseHandler} size="xl">
       <Modal.Content maxWidth="400px">
@@ -128,7 +109,6 @@ const NearestWashroomModal = (props) => {
           >
             {accessibleCheckboxes}
           </Box>
-          <Box paddingTop={2}>{navigationCheckboxes}</Box>
         </Modal.Body>
         <Modal.Footer>
           <Button
@@ -137,7 +117,7 @@ const NearestWashroomModal = (props) => {
               onCloseHandler();
               navigation.navigate("Directions", {
                 type: "nearestWashroom",
-                options: formData,
+                options: { ...formData, ...routeOptions },
                 startLocation: startLocation,
               });
             }}

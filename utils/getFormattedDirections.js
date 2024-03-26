@@ -1,98 +1,3 @@
-const dummyData = {
-  nodes: [
-    {
-      identity: {
-        low: 13,
-        high: 0,
-      },
-      labels: ["LOCATION"],
-      properties: {
-        elevators: [
-          [0.273, 0.527],
-          [0.273, 0.487],
-        ],
-        name: "E6 Floor 3",
-        id: 14,
-        floor: 3,
-      },
-      elementId: "4:7d4d56f0-21ca-4881-8f49-43a9fca62ab5:13",
-    },
-    {
-      identity: {
-        low: 29,
-        high: 0,
-      },
-      labels: ["LOCATION"],
-      properties: {
-        name: "E6/E7 Bridge",
-        id: 30,
-        floor: 3,
-      },
-      elementId: "4:7d4d56f0-21ca-4881-8f49-43a9fca62ab5:29",
-    },
-    {
-      identity: {
-        low: 2,
-        high: 0,
-      },
-      labels: ["LOCATION"],
-      properties: {
-        elevators: [
-          [0.506, 0.666],
-          [0.506, 0.629],
-          [0.506, 0.745],
-        ],
-        name: "E7 Floor 3",
-        id: 3,
-        floor: 3,
-      },
-      elementId: "4:7d4d56f0-21ca-4881-8f49-43a9fca62ab5:2",
-    },
-    {
-      identity: {
-        low: 3,
-        high: 0,
-      },
-      labels: ["LOCATION"],
-      properties: {
-        elevators: [
-          [0.504, 0.669],
-          [0.504, 0.635],
-          [0.528, 0.749],
-        ],
-        name: "E7 Floor 4",
-        id: 4,
-        floor: 4,
-      },
-      elementId: "4:7d4d56f0-21ca-4881-8f49-43a9fca62ab5:3",
-    },
-    {
-      identity: {
-        low: 47,
-        high: 0,
-      },
-      labels: ["WASHROOM"],
-      properties: {
-        acc_button_access: true,
-        h: 18,
-        l: 122,
-        type: "S",
-        building: "E7",
-        acc_stall: true,
-        multi_stall: false,
-        w: 109,
-        grab_bar: true,
-        x: 0.547,
-        y: 0.634,
-        id: 10,
-        floor: 4,
-      },
-      elementId: "4:7d4d56f0-21ca-4881-8f49-43a9fca62ab5:47",
-    },
-  ],
-  edges: ["INDOOR", "INDOOR", "ELEVATOR", "INDOOR"],
-};
-
 export const getFormattedDirections = (apiData) => {
   if (!apiData || apiData.length == 0) {
     return [{ text: "No directions found" }];
@@ -189,7 +94,7 @@ const getWashroomName = (node) => {
     return "";
   }
 
-  const nameArr = [];
+  const nameArr = ["the"];
 
   if (properties.acc_stall) {
     nameArr.push("accessible");
