@@ -23,9 +23,11 @@ const DirectionCard = (props) => {
       py="6"
       my="2"
     >
-      <Text fontSize={"lg"} bold mb={3}>
-        Step {item.id}
-      </Text>
+      {item.id && (
+        <Text fontSize={"lg"} bold mb={3}>
+          Step {item.id}
+        </Text>
+      )}
       <Text fontSize={"lg"}>{item.text}</Text>
 
       {item.properties?.icon === "WASHROOM" && (

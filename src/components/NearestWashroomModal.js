@@ -4,18 +4,13 @@ import { useEffect, useState } from "react";
 import { View } from "react-native";
 import CheckBox from "react-native-check-box";
 
-const stallOptions = [
-  { label: "multi", title: "Multi Stall" },
-  { label: "single", title: "Single Stall" },
-];
 
-const genderOptions = [
+const checkboxOptions = [
   { label: "female", title: "Female" },
   { label: "male", title: "Male" },
-  { label: "gn", title: "Gender-Neutral" },
+  { label: "gn", title: "Gender Neutral" },
+  { label: "single", title: "Single Stall" },
 ];
-
-const accessibleOptions = [{ label: "accessible", title: "Accessible" }];
 
 const StyledCheckbox = (props) => {
   const { option, handleClick, formData } = props;
@@ -52,27 +47,7 @@ const NearestWashroomModal = (props) => {
     }));
   };
 
-  const genderCheckboxes = genderOptions.map((option) => (
-    <StyledCheckbox
-      option={option}
-      handleClick={() => {
-        handleChange(option);
-      }}
-      formData={formData}
-    ></StyledCheckbox>
-  ));
-
-  const stallCheckboxes = stallOptions.map((option) => (
-    <StyledCheckbox
-      option={option}
-      handleClick={() => {
-        handleChange(option);
-      }}
-      formData={formData}
-    ></StyledCheckbox>
-  ));
-
-  const accessibleCheckboxes = accessibleOptions.map((option) => (
+  const checkboxes = checkboxOptions.map((option) => (
     <StyledCheckbox
       option={option}
       handleClick={() => {
@@ -86,28 +61,20 @@ const NearestWashroomModal = (props) => {
     <Modal isOpen={isOpen} onClose={onCloseHandler} size="xl">
       <Modal.Content maxWidth="400px">
         <Modal.Body>
+          <Box>{checkboxes}</Box>
           <Box
             borderBottomColor={"gray.300"}
-            borderBottomWidth={1}
-            paddingBottom={2}
-          >
-            {genderCheckboxes}
-          </Box>
-          <Box
-            paddingTop={2}
-            borderBottomColor={"gray.300"}
-            borderBottomWidth={1}
-            paddingBottom={2}
-          >
-            {stallCheckboxes}
-          </Box>
-          <Box
-            paddingTop={2}
-            borderBottomColor={"gray.300"}
-            borderBottomWidth={1}
-            paddingBottom={2}
-          >
-            {accessibleCheckboxes}
+            borderBottomWidth={2}
+            marginY={2}
+          ></Box>
+          <Box>
+            <StyledCheckbox
+              option={{ label: "accessible", title: "Accessible" }}
+              handleClick={() => {
+                handleChange(option);
+              }}
+              formData={formData}
+            ></StyledCheckbox>
           </Box>
         </Modal.Body>
         <Modal.Footer>

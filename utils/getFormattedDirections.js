@@ -4,6 +4,9 @@ export const getFormattedDirections = (apiData) => {
   }
 
   const { nodes, edges } = apiData;
+  if (!edges || edges.length == 0) {
+    return [{ text: "No directions found" }];
+  }
   const directions = [];
   let idx = 0;
 
