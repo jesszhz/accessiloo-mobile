@@ -79,6 +79,12 @@ const NearestWashroomModal = (props) => {
         </Modal.Body>
         <Modal.Footer>
           <Button
+            isDisabled={
+              !formData.female &&
+              !formData.male &&
+              !formData.gn &&
+              !formData.accessble
+            }
             bgColor={"#4C1D95"}
             onPress={() => {
               onCloseHandler();
