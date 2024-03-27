@@ -139,7 +139,7 @@ const getWashroomProperties = (node) => {
     case "S":
       properties.type = "Universal Washroom";
       break;
-    case "M":
+    case "W":
       properties.type = "Female Washroom";
       break;
 
