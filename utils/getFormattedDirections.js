@@ -146,10 +146,16 @@ const getWashroomProperties = (node) => {
   const properties = {
     acc_button_access: node.properties.acc_button_access,
     acc_stall: node.properties.acc_stall,
-    stall_dimensions: [node.properties.l, node.properties.w],
-    toilet_height: node.properties.h,
     grab_bar: node.properties.grab_bar,
   };
+
+  if (node.properties.l) {
+    properties.stall_dimensions = [node.properties.l, node.properties.w];
+  }
+
+  if (node.properties.h) {
+    properties.toilet_height = node.properties.h;
+  }
 
   switch (node.properties.type) {
     case "S":

@@ -51,13 +51,15 @@ const DirectionCard = (props) => {
             Automatic Door: {properties.acc_button_access ? "Yes" : "No"}
           </Text>
           <Text>Accessible Stall: {properties.acc_stall ? "Yes" : "No"}</Text>
-          {properties.acc_stall && (
+          {properties.acc_stall && properties.stall_dimensions && (
             <Text>
               Accessible Stall Dimensions: {properties.stall_dimensions[0]} x{" "}
               {properties.stall_dimensions[1]} inches
             </Text>
           )}
-          <Text>Toilet Height: {properties.toilet_height} inches</Text>
+          {properties.toilet_height && (
+            <Text>Toilet Height: {properties.toilet_height} inches</Text>
+          )}
           <Text>Grab Bars: {properties.grab_bar ? "Yes" : "No"}</Text>
         </>
       )}
