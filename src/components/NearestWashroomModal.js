@@ -71,7 +71,7 @@ const NearestWashroomModal = (props) => {
             <StyledCheckbox
               option={{ label: "accessible", title: "Accessible" }}
               handleClick={() => {
-                handleChange(option);
+                handleChange({ label: "accessible", title: "Accessible" });
               }}
               formData={formData}
             ></StyledCheckbox>
