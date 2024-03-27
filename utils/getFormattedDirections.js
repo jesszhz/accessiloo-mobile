@@ -66,6 +66,12 @@ const getDirectionsFromNodes = (startNode, endNode, path) => {
         mapNode: getMapNodeFromName(startLocation),
       };
 
+      if (startLocation.includes("Bridge") && !endLocation.includes("Bridge")) {
+        directions.mapNode = getMapNodeFromName(endLocation);
+      } else if (startLocation.includes("Bridge")) {
+        directions.mapNode = null;
+      }
+
       if (isWashroom) {
         directions.properties = getWashroomProperties(endNode);
         directions.icon = "WASHROOM";
