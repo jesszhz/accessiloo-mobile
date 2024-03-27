@@ -41,7 +41,14 @@ export const getFormattedDirections = (apiData) => {
   return directions;
 };
 
+const getMapNodeFromName = (name) => {
+  const nameArr = name.split(" ");
+  console.log("nameArr", nameArr);
+  return `${nameArr[0]}-${nameArr[nameArr.length - 1]}`;
+};
+
 const getDirectionsFromNodes = (startNode, endNode, path) => {
+  console.log("startNode", startNode);
   const isWashroom = endNode.labels[0] === "WASHROOM";
 
   const startLocation = startNode.properties.name;
@@ -56,6 +63,7 @@ const getDirectionsFromNodes = (startNode, endNode, path) => {
         icon: "INDOOR",
         startLocationString: startLocation,
         endLocationString: endLocation,
+        mapNode: getMapNodeFromName(startLocation),
       };
 
       if (isWashroom) {
@@ -77,6 +85,7 @@ const getDirectionsFromNodes = (startNode, endNode, path) => {
         icon: "ELEVATOR",
         startLocationString: startLocation,
         endLocationString: endLocation,
+        mapNode: getMapNodeFromName(startLocation),
       };
       break;
     case "STAIR":
@@ -85,6 +94,7 @@ const getDirectionsFromNodes = (startNode, endNode, path) => {
         icon: "STAIR",
         startLocationString: startLocation,
         endLocationString: endLocation,
+        mapNode: getMapNodeFromName(startLocation),
       };
       break;
   }
