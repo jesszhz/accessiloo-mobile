@@ -83,7 +83,7 @@ const NearestWashroomModal = (props) => {
               !formData.female &&
               !formData.male &&
               !formData.gn &&
-              !formData.accessble
+              !formData.single
             }
             bgColor={"#4C1D95"}
             onPress={() => {
