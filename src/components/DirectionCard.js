@@ -30,7 +30,7 @@ const DirectionCard = (props) => {
       )}
       <Text fontSize={"lg"}>{item.text}</Text>
 
-      {item.properties?.icon === "WASHROOM" && (
+      {item.icon === "WASHROOM" && item.properties && (
         <Link
           marginTop={2}
           marginBottom={2}

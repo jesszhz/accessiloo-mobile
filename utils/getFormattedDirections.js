@@ -60,7 +60,7 @@ const getDirectionsFromNodes = (startNode, endNode, path) => {
 
       if (isWashroom) {
         directions.properties = getWashroomProperties(endNode);
-        directions.properties.icon = "WASHROOM";
+        directions.icon = "WASHROOM";
       }
       break;
     case "OUTDOOR":
